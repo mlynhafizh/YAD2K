@@ -231,10 +231,10 @@ def _main(args):
             assert block_size == 2, 'Only reorg with stride 2 supported.'
             all_layers.append(
                 Lambda(
-                    tf.compat.v1.space_to_depth_x2(),
+                    tf.compat.v1.space_to_depth(),
                     space_to_depth_x2,
-                    output_shape=tf.compat.v1.space_to_depth_x2_output_shape(),
-                    name='tf.compat.v1.space_to_depth_x2()')(prev_layer))
+                    output_shape=tf.compat.v1.space_to_depth_output_shape(),
+                    name='tf.compat.v1.space_to_depth()')(prev_layer))
             prev_layer = all_layers[-1]
 
         elif section.startswith('region'):
