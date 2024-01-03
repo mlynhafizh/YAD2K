@@ -10,7 +10,7 @@ import configparser
 import io
 import os
 from collections import defaultdict
-
+import tensorflow as tf
 import numpy as np
 from keras import backend as K
 from keras.layers import (Conv2D, GlobalAveragePooling2D, Input, Lambda,
