@@ -10,7 +10,7 @@ import configparser
 import io
 import os
 from collections import defaultdict
-import tensorflow as tf
+
 import numpy as np
 from keras import backend as K
 from keras.layers import (Conv2D, GlobalAveragePooling2D, Input, Lambda,
@@ -20,7 +20,7 @@ from keras.layers import concatenate
 from keras.layers import BatchNormalization
 from keras.models import Model
 from keras.regularizers import l2
-from tensorflow.keras.utils import plot_model
+from keras.utils import plot_model as plot
 
 from yad2k.models.keras_yolo import (space_to_depth_x2,
                                      space_to_depth_x2_output_shape)
@@ -231,10 +231,9 @@ def _main(args):
             assert block_size == 2, 'Only reorg with stride 2 supported.'
             all_layers.append(
                 Lambda(
-                    tf.compat.v1.space_to_depth(),
                     space_to_depth_x2,
-                    output_shape=tf.compat.v1.space_to_depth_output_shape(),
-                    name='tf.compat.v1.space_to_depth()')(prev_layer))
+                    output_shape=space_to_depth_x2_output_shape,
+                    name='space_to_depth_x2')(prev_layer))
             prev_layer = all_layers[-1]
 
         elif section.startswith('region'):
